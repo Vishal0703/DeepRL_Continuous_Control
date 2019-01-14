@@ -27,6 +27,5 @@ class QNetwork(nn.Module):
         o1 = F.relu(self.fc1(state))
         o2 = F.relu(self.fc2(o1))
         o = self.fc3(o2)
-        return o
-    
+        return o    
         
