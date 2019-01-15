@@ -35,7 +35,7 @@ class CriticNetwork(nn.Module):
         self.fcs1 = nn.Linear(state_size, hs1_size)
         self.fca1 = nn.Linear(action_size, ha1_size)
         self.fc2 = nn.Linear(hs1_size + ha1_size, h2_size) 
-        self.fc3 = nn.Linear(h2_size, action_size)
+        self.fc3 = nn.Linear(h2_size, 1)
         
         
     def forward(self,x,a):
