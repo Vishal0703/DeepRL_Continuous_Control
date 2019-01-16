@@ -10,7 +10,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 
-BUF_SIZE = 100000
+BUF_SIZE = 1000000
 N = 5
 TAU = 1e-3
 batch_size = 256
