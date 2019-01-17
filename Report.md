@@ -54,22 +54,22 @@ The learner samples from the replay buffer, learns and updates the priorities of
 
 ## Results
 
-![Learning Curve]()
+![Learning Curve](Images/scores.png)
 
 The chart above shows an average reward over 100 consecutive episodes.<br/>
-The agent reaches the level required for considering environment solved in 1706 episodes.<br/>
+The agent reaches the level required for considering environment solved in 342 episodes.<br/>
 
 ## Future Work
 
 ### 1. Hyperparameter Tuning
-Trying different network layer units.
+Trying different network layer units.</br>
 Can also try adding noise to network parameters rather than adding to final action output.
 
 
 ### 2. Trying out other environments
-The Crawler agent should be fun and challenging enough to try.
+The Crawler agent should be fun and challenging enough to try. I would also like to create my own unity environment and try this algorithm out.
+
+### 3. MultiAgent D4PG
+Next try to use D4PG in a multi agent learning task. 
 
 
-```python
-
-```
