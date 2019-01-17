@@ -19,8 +19,8 @@ ALPHA = 1e-4
 BETA = 1e-4
 TD_EPSILON = 1e-3
 
-#device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-device = "cpu"
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
 class Agent():
     
     def __init__(self, state_size, action_size, seed):
@@ -65,11 +65,11 @@ class Learner():
                                                 # priorities beforehand, so ((a-b)^2)/k = (a/p - b/p)^2 
                                                 # where p = sqrt(k)
         
-        tensor_rp = torch.from_numpy(root_priority).float()
-        q_initialst = ((self.critic_network(st_init, action))/tensor_rp).float()  # qvalues of (s(i),a(i))
+        tensor_rp = torch.from_numpy(root_priority).float().to(device)
+        q_initialst = ((self.critic_network(st_init, action))/tensor_rp).float().to(device)  # qvalues of (s(i),a(i))
 
         action_finalst = self.actor_target_network(st_final)                # action_values of final state(s(i+N))
-        q_finalst = self.critic_target_network(st_final, action_finalst).detach().numpy()   # q_value of final (s(i+N),a_final)
+        q_finalst = self.critic_target_network(st_final, action_finalst).detach().cpu().numpy()   # q_value of final (s(i+N),a_final)
         #print(done.shape)
         done = np.reshape(done, (done.shape[0],1))
         
@@ -93,10 +93,10 @@ class Learner():
         
         y_val = (added_reward + disc*gamma*q_finalst)/root_priority  # target value
         
-        y_val = torch.from_numpy(y_val).float()
+        y_val = torch.from_numpy(y_val).float().to(device)
         #print(y_val.shape)
         #print(q_initialst.shape)
-        td_error = ((torch.abs(y_val - q_initialst))*tensor_rp + TD_EPSILON).detach().numpy()
+        td_error = ((torch.abs(y_val - q_initialst))*tensor_rp + TD_EPSILON).detach().cpu().numpy()
         td_error = np.reshape(td_error, (self.batch_size,))
         
         for i in range(self.batch_size):
